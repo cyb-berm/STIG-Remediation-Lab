@@ -32,6 +32,18 @@ Set-ItemProperty -Path $regPath -Name 'MaxSize' -Value 0x8000 -Type DWord
 
 Write-Host "Applied: MaxSize = 0x8000 (32768 KB) at $regPath"
 
+<img width="1783" height="750" alt="Screenshot 2026-08-15 at 4 37 35 PM" src="https://github.com/user-attachments/assets/e342d28d-7d5b-48e3-871a-0f4176d5e187" />
+as shown, after the script was ran the following folders were created with the file named "MaxSize" with a size of 32768 kb.
+
+<img width="1506" height="399" alt="Screenshot 2026-08-15 at 2 45 55 PM" src="https://github.com/user-attachments/assets/e8edd225-7000-43aa-96c7-c33d8b0ce1d2" />
+& to finalize it, i ran another scan to see if the following vulnerability was fixed. As shown it says the compliance is passed.   
+
+
+
+
+
+
+
 
 
 
