@@ -11,7 +11,7 @@ A hands-on cybersecurity lab documenting the identification, analysis, and remed
 | **Platform** | Microsoft Azure (Windows 11 VM) |
 | **STIG Benchmark** | Windows 11 STIG |
 | **Remediation Methods** | Registry edits, PowerShell, Group Policy |
-| **Progress** | 2 / 10 Complete |
+| **Progress** | 3 / 10 Complete |
 
 ---
 
@@ -21,7 +21,7 @@ A hands-on cybersecurity lab documenting the identification, analysis, and remed
 |---|---|---|---|
 | 1 | WN11-AU-000500 | Application Event Log Max Size | ✅ Complete |
 | 2 | WN11-AU-000510 | System Event Log Max Size | ✅ Complete |
-| 3 | *(coming soon)* | — | 🔲 Pending |
+| 3 | WN11-00-000175 | Secondary Logon Service Disabled | ✅ Complete |
 | 4 | *(coming soon)* | — | 🔲 Pending |
 | 5 | *(coming soon)* | — | 🔲 Pending |
 | 6 | *(coming soon)* | — | 🔲 Pending |
@@ -72,13 +72,13 @@ The baseline scan flagged **WN11-AU-000500** as a failed finding.
 
 Drilling into the STIG detail confirmed the Application Event Log max size was configured below the required 32,768 KB minimum.
 
-![STIG detail view for WN11-AU-000500](https://private-user-images.githubusercontent.com/301828066/636647563-d0219a92-2de4-4c41-a352-85c7191230c7.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjQ3NTYzLWQwMjE5YTkyLTJkZTQtNGM0MS1hMzUyLTg1YzcxOTEyMzBjNy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwODE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDgxNlQxNDQ1MDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yYzEyNTk1ZWIzNDNmMDJlNWVjMjE2MzhhMGY1Y2ExYjk5ZTBkMGFmZWQwYmQ5NDI4ZjY3MzJmM2Y4YWZjODQ5JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.RAzQMMz8Nh3BlHLw_53FY7WzStHGVum3RLDYDBaFAGo)
+![STIG detail view for WN11-AU-000500](https://private-user-images.githubusercontent.com/301828066/636647563-d0219a92-2de4-4c41-a352-85c7191230c7.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjQ3NTYzLWQwMjE5YTkyLTJkZTQtNGM0MS1hMzUyLTg1YzcxOTEyMzBjNy5wbmciLCJzaWduYXR1cmUiOiJSQXpRTU16OE5oM0JsSHdfNTNGWTdXelN0SEdWdW0zUkxZREJhRkFHbyJ9.RAzQMMz8Nh3BlHLw_53FY7WzStHGVum3RLDYDBaFAGo)
 
 <br>
 
 Checking the registry directly confirmed the `MaxSize` value was either missing or set below the required threshold.
 
-![Registry showing non-compliant MaxSize value](https://private-user-images.githubusercontent.com/301828066/636647850-1c74a7d1-a009-42ca-a705-0fcbb4f3effd.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjQ3ODUwLTFjNzRhN2QxLWEwMDktNDJjYS1hNzA1LTBmY2JiNGYzZWZmZC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwODE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDgxNlQxNDQ1MDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01Yjc5YWE0Y2FkYzdmODI5NjM2MjNlZjBlYzJiYWQ1ZjkyZWQ4YzZkYjVhODQyZDJiNGViZTA5M2E1NTA5NzdjJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.pdRfCZVzSoZyMrcLIfsOiYdOnrC4cn02jBGnnDMRVBE)
+![Registry showing non-compliant MaxSize value](https://private-user-images.githubusercontent.com/301828066/636647850-1c74a7d1-a009-42ca-a705-0fcbb4f3effd.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjQ3ODUwLTFjNzRhN2QxLWEwMDktNDJjYS1hNzA1LTBmY2JiNGYzZWZmZC5wbmciLCJzaWduYXR1cmUiOiJwZFJmQ1pWelNvWnlNcmNMSWZzT2lZZE9uckM0Y24wMkpHbm5ETVJWQNSVRCJ9.pdRfCZVzSoZyMrcLIfsOiYdOnrC4cn02jBGnnDMRVBE)
 
 ---
 
@@ -97,7 +97,7 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application
 "MaxSize" = dword:00008000
 ```
 
-![Manual registry edit showing MaxSize being set](https://private-user-images.githubusercontent.com/301828066/636649450-4e4cf478-f992-4e3b-9cf7-6d1880957268.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjQ5NDUwLTRlNGNmNDc4LWY5OTItNGUzYi05Y2Y3LTZkMTg4MDk1NzI2OC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwODE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDgxNlQxNDQ1MDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wYmQ0ZDczY2Y1MmRkZjUzYjBkMmFiN2M0ZGY3ZDg1NDYyMGE0Mjc3NWVjMjcxZDgyZjlmNGIxMDk2ZDZiZTc1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.eq-CFpFf5tE1WVpxl9F4DjQOLBzC_9jXFPNjiRceyIA)
+![Manual registry edit showing MaxSize being set](https://private-user-images.githubusercontent.com/301828066/636649450-4e4cf478-f992-4e3b-9cf7-6d1880957268.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjQ5NDUwLTRlNGNmNDc4LWY5OTItNGUzYi05Y2Y3LTZkMTg4MDk1NzI2OC5wbmciLCJzaWduYXR1cmUiOiIwYmQ0ZDczY2Y1MmRkZjUzYjBkMmFiN2M0ZGY3ZDg1NDYyMGE0Mjc3NWVjMjcxZDgyZjlmNGIxMDk2ZDZiZTc1In0.eq-CFpFf5tE1WVpxl9F4DjQOLBzC_9jXFPNjiRceyIA)
 
 <br>
 
@@ -120,7 +120,7 @@ Write-Host "Applied: MaxSize = 0x8000 (32768 KB) at $regPath"
 
 After the script ran, the registry key and `MaxSize` value were correctly created at `32768 KB (0x8000)`.
 
-![Registry after script execution confirming MaxSize created](https://private-user-images.githubusercontent.com/301828066/636649874-6e10c747-5f68-45db-88d8-a7fe82defd42.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjQ5ODc0LTZlMTBjNzQ3LTVmNjgtNDVkYi04OGQ4LWE3ZmU4MmRlZmQ0Mi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwODE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDgxNlQxNDQ1MDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT02ZjZiNjlmNzE4NDRhNzcyZWRmYWEwYTQ3MGI3MzI2ZWY5Y2I4MzZiZGQwODIyOTUzMDgxYTZkMTFjZjBlMTI1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.yrtWiPL4nSQaXEiHdl-Y_mO0APGJxFEQBsi5qjKTYmo)
+![Registry after script execution confirming MaxSize created](https://private-user-images.githubusercontent.com/301828066/636649874-6e10c747-5f68-45db-88d8-a7fe82defd42.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjQ5ODc0LTZlMTBjNzQ3LTVmNjgtNDVkYi04OGQ4LWE3ZmU4MmRlZmQ0Mi5wbmciLCJzaWduYXR1cmUiOiI2ZjZiNjlmNzE4NDRhNzcyZWRmYWEwYTQ3MGI3MzI2ZWY5Y2I4MzZiZGQwODIyOTUzMDgxYTZkMTFjZjBlMTI1In0.yrtWiPL4nSQaXEiHdl-Y_mO0APGJxFEQBsi5qjKTYmo)
 
 ---
 
@@ -128,11 +128,11 @@ After the script ran, the registry key and `MaxSize` value were correctly create
 
 A follow-up STIG scan was run to confirm the finding was resolved.
 
-![Post-remediation scan result](https://private-user-images.githubusercontent.com/301828066/636650581-e342d28d-7d5b-48e3-871a-0f4176d5e187.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjUwNTgxLWUzNDJkMjhkLTdkNWItNDhlMy04NzFhLTBmNDE3NmQ1ZTE4Ny5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwODE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDgxNlQxNDQ1MDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1jMDU4ZWMzOTJiZjNmZTAyMGZkNGQzNWY2NGYwZjcxNWE0YmYyMTU5YTBjNjcwNTY2MzgyMjI3MDQ3NmFmY2MwJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.HiA8FUKXjZkPbLMIgwimCDbMNxAYDj0TDITFrTLagiY)
+![Post-remediation scan result](https://private-user-images.githubusercontent.com/301828066/636650581-e342d28d-7d5b-48e3-871a-0f4176d5e187.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjUwNTgxLWUzNDJkMjhkLTdkNWItNDhlMy04NzFhLTBmNDE3NmQ1ZTE4Ny5wbmciLCJzaWduYXR1cmUiOiJjMDU4ZWMzOTJiZjNmZTAyMGZkNGQzNWY2NGYwZjcxNWE0YmYyMTU5YTBjNjcwNTY2MzgyMjI3MDQ3NmFmY2MwIn0.HiA8FUKXjZkPbLMIgwimCDbMNxAYDj0TDITFrTLagiY)
 
 Compliance status for WN11-AU-000500 now shows **Passed** ✅
 
-![Final scan confirming compliance passed](https://private-user-images.githubusercontent.com/301828066/636650806-e8edd225-7000-43aa-96c7-c33d8b0ce1d2.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjUwODA2LWU4ZWRkMjI1LTcwMDAtNDNhYS05NmM3LWMzM2Q4YjBjZTFkMi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwODE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDgxNlQxNDQ1MDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01NDEwYjdlM2MxNWUxNjE4YTIxODUyNzVkNDVjODEzZjk3OWIyMjVkMGI3NDcyNmY0ODg1OWFkODczNDI2Nzc1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.hgrpjM4wbQlFf3S5Hre18W6n-4mS6RQwT3IZoWY9j9M)
+![Final scan confirming compliance passed](https://private-user-images.githubusercontent.com/301828066/636650806-e8edd225-7000-43aa-96c7-c33d8b0ce1d2.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjUwODA2LWU4ZWRkMjI1LTcwMDAtNDNhYS05NmM3LWMzM2Q4YjBjZTFkMi5wbmciLCJzaWduYXR1cmUiOiI1NDEwYjdlM2MxNWUxNjE4YTIxODUyNzVkNDVjODEzZjk3OWIyMjVkMGI3NDcyNmY0ODg1OWFkODczNDI2Nzc1In0.hgrpjM4wbQlFf3S5Hre18W6n-4mS6RQwT3IZoWY9j9M)
 
 ---
 
@@ -199,39 +199,83 @@ A follow-up STIG scan was run to confirm the finding was resolved. Compliance st
 
 ---
 
-## 🔲 STIG 3 — WN11-00-000175 
+## ✅ STIG 3 — WN11-00-000175
+### Secondary Logon Service Disabled
 
-After running a scan, heres the specific vulnerability  
+<br>
 
-<img width="1525" height="306" alt="Screenshot 2026-08-16 at 11 18 26 PM" src="https://github.com/user-attachments/assets/8b320c9d-4c38-44ad-903f-0ba0480ff4af" />
+### 📌 What Is This Finding?
 
-As shown below in order to remediate this vulnerability, we must configure the "Secondary Logon" service "Startup Type" to "Disabled".
+The Windows 11 **Secondary Logon** service allows processes to be started under alternate credentials, which can be exploited by attackers to escalate privileges or run malicious processes under a different user context. The STIG requires this service to be fully disabled to reduce the attack surface.
 
-<img width="1910" height="474" alt="Screenshot 2026-08-16 at 9 35 32 PM" src="https://github.com/user-attachments/assets/e3c126f3-1113-41c7-84cb-5b158ffee6b5" />
+> **STIG Requirement:**
+> Configure the policy value for:
+> `Computer Configuration >> Windows Settings >> Security Settings >> System Services >> Secondary Logon`
+> to **Startup Type: Disabled**.
 
-One way to manually do it is to do the following steps 
-1.Press Win + R → type services.msc → Enter
-2.Scroll to Secondary Logon
-3.Right-click → Properties
-4.Set Startup type to Disabled → click Stop → Apply
+---
 
-<img width="1919" height="897" alt="Screenshot 2026-08-16 at 8 47 29 PM" src="https://github.com/user-attachments/assets/4872814b-7457-45c6-a208-44197952affc" />
+### 🔍 Step 1 — Identifying the Finding
 
-A more efficient way to go about it is to run this script in powershell 
+The STIG scan flagged **WN11-00-000175** as a failed finding, indicating the Secondary Logon service was not disabled.
+
+![STIG scan showing WN11-00-000175 failed](https://github.com/user-attachments/assets/8b320c9d-4c38-44ad-903f-0ba0480ff4af)
+
+<br>
+
+Reviewing the service confirmed it was running with a startup type other than Disabled — leaving the vulnerability open.
+
+![Secondary Logon service showing non-compliant startup type](https://github.com/user-attachments/assets/e3c126f3-1113-41c7-84cb-5b158ffee6b5)
+
+---
+
+### 🛠️ Step 2 — Remediation
+
+Two methods were used to resolve this finding.
+
+<br>
+
+#### Method 1 — Manual via Services (services.msc)
+
+1. Press `Win + R` → type `services.msc` → press **Enter**
+2. Scroll down to **Secondary Logon**
+3. Right-click → **Properties**
+4. Set **Startup type** to **Disabled** → click **Stop** → click **Apply**
+
+![services.msc showing Secondary Logon set to Disabled](https://github.com/user-attachments/assets/4872814b-7457-45c6-a208-44197952affc)
+
+<br>
+
+#### Method 2 — PowerShell Script *(Recommended)*
+
+A faster and repeatable approach. Run the following as Administrator:
+
+```powershell
+# Requires elevation (Run as Administrator)
 Set-Service -Name seclogon -StartupType Disabled
 Stop-Service -Name seclogon -Force
 Write-Host "Secondary Logon service disabled."
+```
 
-<img width="1350" height="612" alt="Screenshot 2026-08-16 at 9 06 53 PM" src="https://github.com/user-attachments/assets/d097e783-759a-4d3f-8461-649285ec88f3" />
+After the script ran, the service was stopped and its startup type was correctly set to Disabled.
 
-After running the script I went back to check if the changes were modified correctly & it was.
+![PowerShell script disabling Secondary Logon service](https://github.com/user-attachments/assets/d097e783-759a-4d3f-8461-649285ec88f3)
 
-<img width="1241" height="879" alt="Screenshot 2026-08-16 at 9 02 13 PM" src="https://github.com/user-attachments/assets/dff218ea-127b-421c-8076-303bfdd5292c" />
+<br>
 
-To conclude it, I rescan & received a report that it passed the compliance check
+Verifying in `services.msc` confirmed the change was applied correctly.
 
-<img width="1519" height="445" alt="Screenshot 2026-08-16 at 10 17 20 PM" src="https://github.com/user-attachments/assets/19c59f1f-3e7e-4f0b-a789-536011433704" />
+![services.msc confirming Secondary Logon is Disabled](https://github.com/user-attachments/assets/dff218ea-127b-421c-8076-303bfdd5292c)
 
+---
+
+### ✔️ Step 3 — Verification
+
+A follow-up STIG scan was run to confirm the finding was resolved. Compliance status for WN11-00-000175 now shows **Passed** ✅
+
+![Post-remediation scan confirming compliance passed](https://github.com/user-attachments/assets/19c59f1f-3e7e-4f0b-a789-536011433704)
+
+---
 
 ## 🔲 STIG 4 — *(Coming Soon)*
 
@@ -280,7 +324,3 @@ To conclude it, I rescan & received a report that it passed the compliance check
 - [DISA STIG Library](https://public.cyber.mil/stigs/)
 - [Windows 11 STIG Overview](https://www.stigviewer.com/stig/windows_11/)
 - [NIST NVD](https://nvd.nist.gov/)
-
-
-
-
