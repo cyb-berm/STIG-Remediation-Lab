@@ -11,7 +11,7 @@ A hands-on cybersecurity lab documenting the identification, analysis, and remed
 | **Platform** | Microsoft Azure (Windows 11 VM) |
 | **STIG Benchmark** | Windows 11 STIG |
 | **Remediation Methods** | Registry edits, PowerShell, Group Policy |
-| **Progress** | 4 / 10 Complete |
+| **Progress** | 6 / 10 Complete |
 
 ---
 
@@ -23,8 +23,8 @@ A hands-on cybersecurity lab documenting the identification, analysis, and remed
 | 2 | WN11-AU-000510 | System Event Log Max Size | ✅ Complete |
 | 3 | WN11-00-000175 | Secondary Logon Service Disabled | ✅ Complete |
 | 4 | WN11-AC-000005 | Account Lockout Duration | ✅ Complete |
-| 5 | *(coming soon)* | — | 🔲 Pending |
-| 6 | *(coming soon)* | — | 🔲 Pending |
+| 5 | WN11-AC-000010 | Account Lockout Threshold | ✅ Complete |
+| 6 | WN11-AC-000015 | Logon Counter Reset Period | ✅ Complete |
 | 7 | *(coming soon)* | — | 🔲 Pending |
 | 8 | *(coming soon)* | — | 🔲 Pending |
 | 9 | *(coming soon)* | — | 🔲 Pending |
@@ -58,27 +58,15 @@ The Windows 11 Application Event Log must be configured to a minimum size of **3
 
 An Azure VM running Windows 11 was provisioned with firewalls disabled to allow a baseline STIG scan to run against the machine.
 
-![Initial scan results](https://private-user-images.githubusercontent.com/301828066/636577288-a5a6f64e-7209-45aa-9c9d-8e5891753753.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NTc3Mjg4LWE1YTZmNjRlLTcyMDktNDVhYS05YzlkLThlNTg5MTc1Mzc1My5wbmciLCJzaWduYXR1cmUiOiJBb0ZmQ081VzZ4N3VIYWNrT2MzQW04Sk9WYmh5TG9DTnlXcmVfWTU5SUEifQ.AoFfCO5W6x7uHackOc3Am8JOVbVhyLoCNyWre_Y59IA)
+> ⚠️ *Screenshots pending re-upload with permanent links.*
 
 ---
 
 ### 🔍 Step 2 — Identifying the Finding
 
-The baseline scan flagged **WN11-AU-000500** as a failed finding.
+The baseline scan flagged **WN11-AU-000500** as a failed finding. Drilling into the STIG detail confirmed the Application Event Log max size was configured below the required 32,768 KB minimum. Checking the registry directly confirmed the `MaxSize` value was either missing or set below the required threshold.
 
-![STIG scan showing WN11-AU-000500 failed](https://private-user-images.githubusercontent.com/301828066/636646282-226fccf2-6884-400c-841a-01f731c166be.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjQ2MjgyLTIyNmZjY2YyLTY4ODQtNDAwYy04NDFhLTAxZjczMWMxNjZiZS5wbmciLCJzaWduYXR1cmUiOiJkYmRlYzU3OGU3N2E2M2E0N2UzYzZjNDU4MmE1ZmVlODEwYzc4ZWE3NDgxZGIwNTM0MTI2NGVhMDQxZGQ4YWY5In0.Sbcff5FY0Tsur0tiMx2EaJ6Kd6hVSPSzSvH8O33Dbno)
-
-<br>
-
-Drilling into the STIG detail confirmed the Application Event Log max size was configured below the required 32,768 KB minimum.
-
-![STIG detail view for WN11-AU-000500](https://private-user-images.githubusercontent.com/301828066/636647563-d0219a92-2de4-4c41-a352-85c7191230c7.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjQ3NTYzLWQwMjE5YTkyLTJkZTQtNGM0MS1hMzUyLTg1YzcxOTEyMzBjNy5wbmciLCJzaWduYXR1cmUiOiJSQXpRTU16OE5oM0JsSHdfNTNGWTdXelN0SEdWdW0zUkxZREJhRkFHbyJ9.RAzQMMz8Nh3BlHLw_53FY7WzStHGVum3RLDYDBaFAGo)
-
-<br>
-
-Checking the registry directly confirmed the `MaxSize` value was either missing or set below the required threshold.
-
-![Registry showing non-compliant MaxSize value](https://private-user-images.githubusercontent.com/301828066/636647850-1c74a7d1-a009-42ca-a705-0fcbb4f3effd.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjQ3ODUwLTFjNzRhN2QxLWEwMDktNDJjYS1hNzA1LTBmY2JiNGYzZWZmZC5wbmciLCJzaWduYXR1cmUiOiJwZFJmQ1pWelNvWnlNcmNMSWZzT2lZZE9uckM0Y24wMkpHbm5ETVJWQNSVRCJ9.pdRfCZVzSoZyMrcLIfsOiYdOnrC4cn02jBGnnDMRVBE)
+> ⚠️ *Screenshots pending re-upload with permanent links.*
 
 ---
 
@@ -96,8 +84,6 @@ Navigated to the registry path below and manually created the `MaxSize` DWORD va
 HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application
 "MaxSize" = dword:00008000
 ```
-
-![Manual registry edit showing MaxSize being set](https://private-user-images.githubusercontent.com/301828066/636649450-4e4cf478-f992-4e3b-9cf7-6d1880957268.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjQ5NDUwLTRlNGNmNDc4LWY5OTItNGUzYi05Y2Y3LTZkMTg4MDk1NzI2OC5wbmciLCJzaWduYXR1cmUiOiIwYmQ0ZDczY2Y1MmRkZjUzYjBkMmFiN2M0ZGY3ZDg1NDYyMGE0Mjc3NWVjMjcxZDgyZjlmNGIxMDk2ZDZiZTc1In0.eq-CFpFf5tE1WVpxl9F4DjQOLBzC_9jXFPNjiRceyIA)
 
 <br>
 
@@ -118,21 +104,15 @@ Set-ItemProperty -Path $regPath -Name 'MaxSize' -Value 0x8000 -Type DWord
 Write-Host "Applied: MaxSize = 0x8000 (32768 KB) at $regPath"
 ```
 
-After the script ran, the registry key and `MaxSize` value were correctly created at `32768 KB (0x8000)`.
-
-![Registry after script execution confirming MaxSize created](https://private-user-images.githubusercontent.com/301828066/636649874-6e10c747-5f68-45db-88d8-a7fe82defd42.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjQ5ODc0LTZlMTBjNzQ3LTVmNjgtNDVkYi04OGQ4LWE3ZmU4MmRlZmQ0Mi5wbmciLCJzaWduYXR1cmUiOiI2ZjZiNjlmNzE4NDRhNzcyZWRmYWEwYTQ3MGI3MzI2ZWY5Y2I4MzZiZGQwODIyOTUzMDgxYTZkMTFjZjBlMTI1In0.yrtWiPL4nSQaXEiHdl-Y_mO0APGJxFEQBsi5qjKTYmo)
+> ⚠️ *Screenshots pending re-upload with permanent links.*
 
 ---
 
 ### ✔️ Step 4 — Verification
 
-A follow-up STIG scan was run to confirm the finding was resolved.
+A follow-up STIG scan was run to confirm the finding was resolved. Compliance status for WN11-AU-000500 now shows **Passed** ✅
 
-![Post-remediation scan result](https://private-user-images.githubusercontent.com/301828066/636650581-e342d28d-7d5b-48e3-871a-0f4176d5e187.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjUwNTgxLWUzNDJkMjhkLTdkNWItNDhlMy04NzFhLTBmNDE3NmQ1ZTE4Ny5wbmciLCJzaWduYXR1cmUiOiJjMDU4ZWMzOTJiZjNmZTAyMGZkNGQzNWY2NGYwZjcxNWE0YmYyMTU5YTBjNjcwNTY2MzgyMjI3MDQ3NmFmY2MwIn0.HiA8FUKXjZkPbLMIgwimCDbMNxAYDj0TDITFrTLagiY)
-
-Compliance status for WN11-AU-000500 now shows **Passed** ✅
-
-![Final scan confirming compliance passed](https://private-user-images.githubusercontent.com/301828066/636650806-e8edd225-7000-43aa-96c7-c33d8b0ce1d2.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjUwODA2LWU4ZWRkMjI1LTcwMDAtNDNhYS05NmM3LWMzM2Q4YjBjZTFkMi5wbmciLCJzaWduYXR1cmUiOiI1NDEwYjdlM2MxNWUxNjE4YTIxODUyNzVkNDVjODEzZjk3OWIyMjVkMGI3NDcyNmY0ODg1OWFkODczNDI2Nzc1In0.hgrpjM4wbQlFf3S5Hre18W6n-4mS6RQwT3IZoWY9j9M)
+> ⚠️ *Screenshots pending re-upload with permanent links.*
 
 ---
 
@@ -352,65 +332,153 @@ A follow-up STIG scan was run to confirm the finding was resolved. Compliance st
 
 ---
 
-## 🔲 STIG 5 — WN11-AC-000010
+## ✅ STIG 5 — WN11-AC-000010
+### Account Lockout Threshold
 
-> For our next remediation the stig ID is WN11-AC-000010. As shown below, it shows that this failed due to the number of allowed bad logon attempts must be configured to three or less. 
+<br>
 
-<img width="1857" height="321" alt="image" src="https://github.com/user-attachments/assets/639906e4-2645-4434-8f88-2e37dcd5b5ed" />
+### 📌 What Is This Finding?
 
-The following steps to remediate this issue is provided via image below.
+Windows 11 must be configured to lock out an account after no more than **3 invalid logon attempts**. Allowing too many failed attempts before a lockout gives attackers more opportunities to guess credentials through brute-force or password-spray attacks.
 
-<img width="1914" height="472" alt="image" src="https://github.com/user-attachments/assets/bbf4ca14-e581-414b-b408-bd5df23527af" />
-
-As shown in the image below, it is currently set at 10. We could manually fix this issue with the following steps
-
-1.secpol.msc → Account Policies → Account Lockout Policy
-2.Double-click Account lockout threshold
-3.Set to 3 → OK
-
-<img width="1920" height="903" alt="Screenshot 2026-08-17 at 2 08 14 PM" src="https://github.com/user-attachments/assets/db7eeb8a-0975-4cb9-b463-0309427d7cb7" />
-
-I will instead remediate this issue with a more efficient & recommended approach by running this script in powershell.
-
-<img width="1125" height="629" alt="image" src="https://github.com/user-attachments/assets/81bf1f02-e019-4892-ae48-652487ec735a" />
-
-After running the script, I ran another scan & now it shows its passed
-
-<img width="1506" height="295" alt="image" src="https://github.com/user-attachments/assets/466b6eb7-8472-4069-87ff-20241f800f59" />
+> **STIG Requirement:**
+> Configure the policy value for:
+> `Computer Configuration >> Windows Settings >> Security Settings >> Account Policies >> Account Lockout Policy >> "Account lockout threshold"`
+> to **3 or fewer invalid logon attempts**.
 
 ---
 
-## 🔲 STIG 6 — WN11-AC-000015 
-For our next STIG it says in the image that the period of time before the bad logon counter is reset must be configured to 15 minutes.
+### 🔍 Step 1 — Identifying the Finding
 
-<img width="1499" height="296" alt="Screenshot 2026-08-17 at 2 55 24 PM" src="https://github.com/user-attachments/assets/9c63a464-cb80-4e10-b282-e3d74cff5687" />
+The STIG scan flagged **WN11-AC-000010** as a failed finding, indicating the lockout threshold was configured above the maximum allowed value of 3.
 
-Image below explains the STIG further while also providing instructions on how to fix it.
+![STIG scan showing WN11-AC-000010 failed](https://github.com/user-attachments/assets/639906e4-2645-4434-8f88-2e37dcd5b5ed)
 
-<img width="1894" height="523" alt="image" src="https://github.com/user-attachments/assets/52fcab52-cebb-4903-b33a-6352334130e3" />
+<br>
 
-As shown below the bad logon counter is at 10 minutes instead of the recommended configure time of 15 
+Reviewing the STIG detail confirmed the requirement and the non-compliant state.
 
-<img width="1122" height="769" alt="image" src="https://github.com/user-attachments/assets/28614d77-68ac-435f-a805-dd4a15c9e33d" />
+![STIG detail explaining the lockout threshold requirement](https://github.com/user-attachments/assets/bbf4ca14-e581-414b-b408-bd5df23527af)
 
+<br>
 
-As there is two ways to remediate the issue. you could do it manually by following these steps
+Inspecting the Account Lockout Policy confirmed the threshold was set to **10** — well above the maximum of 3.
 
-1.secpol.msc → Account Policies → Account Lockout Policy
-2.Double-click Reset account lockout counter after
-3.Set to 15 minutes → OK
+![Account lockout threshold showing non-compliant value of 10](https://github.com/user-attachments/assets/db7eeb8a-0975-4cb9-b463-0309427d7cb7)
 
-The other option is what i went & did which was implementing this script into powershell
+---
 
-<img width="1125" height="633" alt="image" src="https://github.com/user-attachments/assets/c06130f9-3ab8-42c7-98c1-71e56d3c7bd5" />
+### 🛠️ Step 2 — Remediation
 
-After implementing the script, I ran a scan & the results now says passed & the vulnerability was remediated.
+Two methods can be used to resolve this finding.
 
-<img width="1503" height="398" alt="image" src="https://github.com/user-attachments/assets/faefb0b0-2f73-4f81-bdec-8de003744ed9" />
+<br>
 
+#### Method 1 — Manual via Local Security Policy (secpol.msc)
 
+1. Press `Win + R` → type `secpol.msc` → press **Enter**
+2. Navigate to **Account Policies → Account Lockout Policy**
+3. Double-click **Account lockout threshold**
+4. Set the value to **3** → click **OK**
 
+<br>
 
+#### Method 2 — PowerShell Script *(Recommended)*
+
+A faster and repeatable approach. Run the following as Administrator:
+
+```powershell
+# Requires elevation (Run as Administrator)
+net accounts /lockoutthreshold:3
+Write-Host "Account lockout threshold set to 3."
+```
+
+After running the script, the threshold was correctly updated to 3 invalid logon attempts.
+
+![PowerShell script setting account lockout threshold to 3](https://github.com/user-attachments/assets/81bf1f02-e019-4892-ae48-652487ec735a)
+
+---
+
+### ✔️ Step 3 — Verification
+
+A follow-up STIG scan was run to confirm the finding was resolved. Compliance status for WN11-AC-000010 now shows **Passed** ✅
+
+![Post-remediation scan confirming compliance passed](https://github.com/user-attachments/assets/466b6eb7-8472-4069-87ff-20241f800f59)
+
+---
+
+## ✅ STIG 6 — WN11-AC-000015
+### Logon Counter Reset Period
+
+<br>
+
+### 📌 What Is This Finding?
+
+Windows 11 must be configured to reset the bad logon counter after a minimum of **15 minutes**. If the reset window is too short, an attacker can spread failed attempts across multiple windows to avoid triggering an account lockout — effectively bypassing the threshold control set in WN11-AC-000010.
+
+> **STIG Requirement:**
+> Configure the policy value for:
+> `Computer Configuration >> Windows Settings >> Security Settings >> Account Policies >> Account Lockout Policy >> "Reset account lockout counter after"`
+> to **15 minutes or greater**.
+
+---
+
+### 🔍 Step 1 — Identifying the Finding
+
+The STIG scan flagged **WN11-AC-000015** as a failed finding, indicating the logon counter reset period was set below the required 15-minute minimum.
+
+![STIG scan showing WN11-AC-000015 failed](https://github.com/user-attachments/assets/9c63a464-cb80-4e10-b282-e3d74cff5687)
+
+<br>
+
+Reviewing the STIG detail confirmed the requirement and the remediation path.
+
+![STIG detail explaining the reset counter requirement](https://github.com/user-attachments/assets/52fcab52-cebb-4903-b33a-6352334130e3)
+
+<br>
+
+Inspecting the Account Lockout Policy confirmed the counter reset was set to only **10 minutes** — below the required threshold.
+
+![Account lockout reset counter showing non-compliant value of 10 minutes](https://github.com/user-attachments/assets/28614d77-68ac-435f-a805-dd4a15c9e33d)
+
+---
+
+### 🛠️ Step 2 — Remediation
+
+Two methods can be used to resolve this finding.
+
+<br>
+
+#### Method 1 — Manual via Local Security Policy (secpol.msc)
+
+1. Press `Win + R` → type `secpol.msc` → press **Enter**
+2. Navigate to **Account Policies → Account Lockout Policy**
+3. Double-click **Reset account lockout counter after**
+4. Set the value to **15** minutes → click **OK**
+
+<br>
+
+#### Method 2 — PowerShell Script *(Recommended)*
+
+A faster and repeatable approach. Run the following as Administrator:
+
+```powershell
+# Requires elevation (Run as Administrator)
+net accounts /lockoutwindow:15
+Write-Host "Logon counter reset period set to 15 minutes."
+```
+
+After running the script, the reset period was correctly updated to 15 minutes.
+
+![PowerShell script setting logon counter reset period to 15 minutes](https://github.com/user-attachments/assets/c06130f9-3ab8-42c7-98c1-71e56d3c7bd5)
+
+---
+
+### ✔️ Step 3 — Verification
+
+A follow-up STIG scan was run to confirm the finding was resolved. Compliance status for WN11-AC-000015 now shows **Passed** ✅
+
+![Post-remediation scan confirming compliance passed](https://github.com/user-attachments/assets/faefb0b0-2f73-4f81-bdec-8de003744ed9)
 
 ---
 
@@ -439,6 +507,10 @@ After implementing the script, I ran a scan & the results now says passed & the 
 ---
 
 ## 📚 Resources
+
+- [DISA STIG Library](https://public.cyber.mil/stigs/)
+- [Windows 11 STIG Overview](https://www.stigviewer.com/stig/windows_11/)
+- [NIST NVD](https://nvd.nist.gov/)
 
 - [DISA STIG Library](https://public.cyber.mil/stigs/)
 - [Windows 11 STIG Overview](https://www.stigviewer.com/stig/windows_11/)
