@@ -352,15 +352,65 @@ A follow-up STIG scan was run to confirm the finding was resolved. Compliance st
 
 ---
 
-## 🔲 STIG 5 — *(Coming Soon)*
+## 🔲 STIG 5 — WN11-AC-000010
 
-> *Fill in the STIG ID, title, finding details, remediation steps, and screenshots when ready.*
+> For our next remediation the stig ID is WN11-AC-000010. As shown below, it shows that this failed due to the number of allowed bad logon attempts must be configured to three or less. 
+
+<img width="1857" height="321" alt="image" src="https://github.com/user-attachments/assets/639906e4-2645-4434-8f88-2e37dcd5b5ed" />
+
+The following steps to remediate this issue is provided via image below.
+
+<img width="1914" height="472" alt="image" src="https://github.com/user-attachments/assets/bbf4ca14-e581-414b-b408-bd5df23527af" />
+
+As shown in the image below, it is currently set at 10. We could manually fix this issue with the following steps
+
+1.secpol.msc → Account Policies → Account Lockout Policy
+2.Double-click Account lockout threshold
+3.Set to 3 → OK
+
+<img width="1920" height="903" alt="Screenshot 2026-08-17 at 2 08 14 PM" src="https://github.com/user-attachments/assets/db7eeb8a-0975-4cb9-b463-0309427d7cb7" />
+
+I will instead remediate this issue with a more efficient & recommended approach by running this script in powershell.
+
+<img width="1125" height="629" alt="image" src="https://github.com/user-attachments/assets/81bf1f02-e019-4892-ae48-652487ec735a" />
+
+After running the script, I ran another scan & now it shows its passed
+
+<img width="1506" height="295" alt="image" src="https://github.com/user-attachments/assets/466b6eb7-8472-4069-87ff-20241f800f59" />
 
 ---
 
-## 🔲 STIG 6 — *(Coming Soon)*
+## 🔲 STIG 6 — WN11-AC-000015 
+For our next STIG it says in the image that the period of time before the bad logon counter is reset must be configured to 15 minutes.
 
-> *Fill in the STIG ID, title, finding details, remediation steps, and screenshots when ready.*
+<img width="1499" height="296" alt="Screenshot 2026-08-17 at 2 55 24 PM" src="https://github.com/user-attachments/assets/9c63a464-cb80-4e10-b282-e3d74cff5687" />
+
+Image below explains the STIG further while also providing instructions on how to fix it.
+
+<img width="1894" height="523" alt="image" src="https://github.com/user-attachments/assets/52fcab52-cebb-4903-b33a-6352334130e3" />
+
+As shown below the bad logon counter is at 10 minutes instead of the recommended configure time of 15 
+
+<img width="1122" height="769" alt="image" src="https://github.com/user-attachments/assets/28614d77-68ac-435f-a805-dd4a15c9e33d" />
+
+
+As there is two ways to remediate the issue. you could do it manually by following these steps
+
+1.secpol.msc → Account Policies → Account Lockout Policy
+2.Double-click Reset account lockout counter after
+3.Set to 15 minutes → OK
+
+The other option is what i went & did which was implementing this script into powershell
+
+<img width="1125" height="633" alt="image" src="https://github.com/user-attachments/assets/c06130f9-3ab8-42c7-98c1-71e56d3c7bd5" />
+
+After implementing the script, I ran a scan & the results now says passed & the vulnerability was remediated.
+
+<img width="1503" height="398" alt="image" src="https://github.com/user-attachments/assets/faefb0b0-2f73-4f81-bdec-8de003744ed9" />
+
+
+
+
 
 ---
 
