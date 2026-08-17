@@ -203,8 +203,36 @@ A follow-up STIG scan was run to confirm the finding was resolved. Compliance st
 
 After running a scan, heres the specific vulnerability  
 
----
+<img width="1525" height="306" alt="Screenshot 2026-08-16 at 11 18 26 PM" src="https://github.com/user-attachments/assets/8b320c9d-4c38-44ad-903f-0ba0480ff4af" />
+
 As shown below in order to remediate this vulnerability, we must configure the "Secondary Logon" service "Startup Type" to "Disabled".
+
+<img width="1910" height="474" alt="Screenshot 2026-08-16 at 9 35 32 PM" src="https://github.com/user-attachments/assets/e3c126f3-1113-41c7-84cb-5b158ffee6b5" />
+
+One way to manually do it is to do the following steps 
+1.Press Win + R → type services.msc → Enter
+2.Scroll to Secondary Logon
+3.Right-click → Properties
+4.Set Startup type to Disabled → click Stop → Apply
+
+<img width="1919" height="897" alt="Screenshot 2026-08-16 at 8 47 29 PM" src="https://github.com/user-attachments/assets/4872814b-7457-45c6-a208-44197952affc" />
+
+A more efficient way to go about it is to run this script in powershell 
+Set-Service -Name seclogon -StartupType Disabled
+Stop-Service -Name seclogon -Force
+Write-Host "Secondary Logon service disabled."
+
+<img width="1350" height="612" alt="Screenshot 2026-08-16 at 9 06 53 PM" src="https://github.com/user-attachments/assets/d097e783-759a-4d3f-8461-649285ec88f3" />
+
+After running the script I went back to check if the changes were modified correctly & it was.
+
+<img width="1241" height="879" alt="Screenshot 2026-08-16 at 9 02 13 PM" src="https://github.com/user-attachments/assets/dff218ea-127b-421c-8076-303bfdd5292c" />
+
+To conclude it, I rescan & received a report that it passed the compliance check
+
+<img width="1519" height="445" alt="Screenshot 2026-08-16 at 10 17 20 PM" src="https://github.com/user-attachments/assets/19c59f1f-3e7e-4f0b-a789-536011433704" />
+
+
 ## 🔲 STIG 4 — *(Coming Soon)*
 
 > *Fill in the STIG ID, title, finding details, remediation steps, and screenshots when ready.*
