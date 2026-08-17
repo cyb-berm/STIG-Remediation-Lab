@@ -11,7 +11,7 @@ A hands-on cybersecurity lab documenting the identification, analysis, and remed
 | **Platform** | Microsoft Azure (Windows 11 VM) |
 | **STIG Benchmark** | Windows 11 STIG |
 | **Remediation Methods** | Registry edits, PowerShell, Group Policy |
-| **Progress** | 1 / 10 Complete |
+| **Progress** | 2 / 10 Complete |
 
 ---
 
@@ -20,7 +20,7 @@ A hands-on cybersecurity lab documenting the identification, analysis, and remed
 | # | STIG ID | Title | Status |
 |---|---|---|---|
 | 1 | WN11-AU-000500 | Application Event Log Max Size | ✅ Complete |
-| 2 | *(coming soon)* | — | 🔲 Pending |
+| 2 | WN11-AU-000510 | System Event Log Max Size | ✅ Complete |
 | 3 | *(coming soon)* | — | 🔲 Pending |
 | 4 | *(coming soon)* | — | 🔲 Pending |
 | 5 | *(coming soon)* | — | 🔲 Pending |
@@ -136,31 +136,66 @@ Compliance status for WN11-AU-000500 now shows **Passed** ✅
 
 ---
 
-## 🔲 STIG 2 — WN11-AU-000510
-For this next stig WN11-AU-000510, it states that the System event log size must be configured to 32768 KB or greater. Very similar to previous STIG 
+## ✅ STIG 2 — WN11-AU-000510
+### System Event Log Maximum Size
 
-> <img width="1844" height="880" alt="Screenshot 2026-08-16 at 6 31 33 PM" src="https://github.com/user-attachments/assets/d6b527f9-30c4-4b9e-92c2-dd86f9e07b59" />
+<br>
 
-As you can you see in the provided image that the System event log size is not greater than 32768
+### 📌 What Is This Finding?
 
-<img width="1353" height="757" alt="Screenshot 2026-08-16 at 6 46 51 PM" src="https://github.com/user-attachments/assets/15cde01b-9ab8-4e3c-9357-b9521c2bcc89" />
+The Windows 11 System Event Log must be configured to a minimum size of **32,768 KB (32 MB)**. Just like the Application log, an undersized System log causes older security-relevant events to be overwritten before they can be reviewed — breaking audit continuity.
 
-We then ran a script to remediate the following issue. 
+> **STIG Requirement:**
+> Configure the policy value for:
+> `Computer Configuration >> Administrative Templates >> Windows Components >> Event Log Service >> System >> "Specify the maximum log file size (KB)"`
+> to **Enabled**, with a Maximum Log Size of **32768 KB or greater**.
+>
+> *If the system sends audit records directly to an audit server, this finding is Not Applicable (NA) — must be documented with the ISSO.*
 
+---
+
+### 🔍 Step 1 — Identifying the Finding
+
+The STIG scan flagged **WN11-AU-000510** as a failed finding. Inspecting the System Event Log properties confirmed the current max size was below the required 32,768 KB threshold.
+
+![STIG scan showing WN11-AU-000510 failed and System log size non-compliant](https://github.com/user-attachments/assets/d6b527f9-30c4-4b9e-92c2-dd86f9e07b59)
+
+<br>
+
+Drilling into the Event Viewer confirmed the System log `MaxSize` was not meeting the required minimum.
+
+![System Event Log properties showing non-compliant size](https://github.com/user-attachments/assets/15cde01b-9ab8-4e3c-9357-b9521c2bcc89)
+
+---
+
+### 🛠️ Step 2 — Remediation
+
+A PowerShell script was used to apply the fix. Run the following as Administrator — it creates the registry key if it doesn't exist and sets `MaxSize` to the required value in one step:
+
+```powershell
+# Requires elevation (Run as Administrator)
 $regPath = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\EventLog\System'
-if (-not (Test-Path $regPath)) { New-Item -Path $regPath -Force | Out-Null }
+
+if (-not (Test-Path $regPath)) {
+    New-Item -Path $regPath -Force | Out-Null
+}
+
 Set-ItemProperty -Path $regPath -Name 'MaxSize' -Value 0x8000 -Type DWord
+
 Write-Host "Applied: System log MaxSize = 32768 KB"
+```
 
-<img width="1265" height="740" alt="Screenshot 2026-08-16 at 6 57 16 PM" src="https://github.com/user-attachments/assets/36ba9989-6349-4927-a9aa-6695c303ac0d" />
+After the script ran, the registry key was created and `MaxSize` was correctly set to `32768 KB (0x8000)`.
 
-After running the script, we then scanned to see if the vulnerability was remediated.
+![PowerShell script execution and registry confirming MaxSize applied](https://github.com/user-attachments/assets/36ba9989-6349-4927-a9aa-6695c303ac0d)
 
-<img width="1501" height="174" alt="Screenshot 2026-08-16 at 7 36 40 PM" src="https://github.com/user-attachments/assets/f646ae14-4813-4893-b21a-91fc289065dc" />
+---
 
+### ✔️ Step 3 — Verification
 
+A follow-up STIG scan was run to confirm the finding was resolved. Compliance status for WN11-AU-000510 now shows **Passed** ✅
 
-
+![Post-remediation scan confirming compliance passed](https://github.com/user-attachments/assets/f646ae14-4813-4893-b21a-91fc289065dc)
 
 ---
 
@@ -217,8 +252,6 @@ After running the script, we then scanned to see if the vulnerability was remedi
 - [DISA STIG Library](https://public.cyber.mil/stigs/)
 - [Windows 11 STIG Overview](https://www.stigviewer.com/stig/windows_11/)
 - [NIST NVD](https://nvd.nist.gov/)
-
-
 
 
 
