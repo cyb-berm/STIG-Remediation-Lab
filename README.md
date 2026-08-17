@@ -136,9 +136,31 @@ Compliance status for WN11-AU-000500 now shows **Passed** ✅
 
 ---
 
-## 🔲 STIG 2 — *(Coming Soon)*
+## 🔲 STIG 2 — WN11-AU-000510
+For this next stig WN11-AU-000510, it states that the System event log size must be configured to 32768 KB or greater. Very similar to previous STIG 
 
-> *Fill in the STIG ID, title, finding details, remediation steps, and screenshots when ready.*
+> <img width="1844" height="880" alt="Screenshot 2026-08-16 at 6 31 33 PM" src="https://github.com/user-attachments/assets/d6b527f9-30c4-4b9e-92c2-dd86f9e07b59" />
+
+As you can you see in the provided image that the System event log size is not greater than 32768
+
+<img width="1353" height="757" alt="Screenshot 2026-08-16 at 6 46 51 PM" src="https://github.com/user-attachments/assets/15cde01b-9ab8-4e3c-9357-b9521c2bcc89" />
+
+We then ran a script to remediate the following issue. 
+
+$regPath = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\EventLog\System'
+if (-not (Test-Path $regPath)) { New-Item -Path $regPath -Force | Out-Null }
+Set-ItemProperty -Path $regPath -Name 'MaxSize' -Value 0x8000 -Type DWord
+Write-Host "Applied: System log MaxSize = 32768 KB"
+
+<img width="1265" height="740" alt="Screenshot 2026-08-16 at 6 57 16 PM" src="https://github.com/user-attachments/assets/36ba9989-6349-4927-a9aa-6695c303ac0d" />
+
+After running the script, we then scanned to see if the vulnerability was remediated.
+
+<img width="1501" height="174" alt="Screenshot 2026-08-16 at 7 36 40 PM" src="https://github.com/user-attachments/assets/f646ae14-4813-4893-b21a-91fc289065dc" />
+
+
+
+
 
 ---
 
