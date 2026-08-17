@@ -277,11 +277,34 @@ A follow-up STIG scan was run to confirm the finding was resolved. Compliance st
 
 ---
 
-## 🔲 STIG 4 — *(Coming Soon)*
+## 🔲 STIG 4 — WN11-AC-000005
 
-> *Fill in the STIG ID, title, finding details, remediation steps, and screenshots when ready.*
+One other vulnerability we will be remediating is STIG ID WN11-AC-000005
 
----
+<img width="1461" height="316" alt="Screenshot 2026-08-17 at 9 50 05 AM" src="https://github.com/user-attachments/assets/766e90a0-9b41-459c-b894-d2c215410130" />
+
+As shown below, Windows 11 account lockout duration must be configured to 15 minutes or greater.
+
+<img width="1509" height="601" alt="Screenshot 2026-08-17 at 9 49 24 AM" src="https://github.com/user-attachments/assets/acc546dc-0228-45b4-ad7f-62a697692e9b" />
+
+As shown in the picture below the account lockout duration is currently at 10 minutes.. One way to manually remediate this issue is to 
+
+<img width="1512" height="770" alt="Screenshot 2026-08-17 at 9 48 44 AM" src="https://github.com/user-attachments/assets/a910fa5b-4fb3-4cef-9017-e3158be9f3e3" />
+
+1.Press Win + R → type secpol.msc → Enter
+2.Navigate to Account Policies → Account Lockout Policy
+3.Double-click Account lockout duration
+4.Set to 15 minutes → OK
+
+A more efficient & recommended way is to run this script into powershell which is what 
+i did. 
+
+<img width="976" height="514" alt="Screenshot 2026-08-17 at 9 51 23 AM" src="https://github.com/user-attachments/assets/34257cb4-906c-4d21-8f1c-12d2e07ce44e" />
+
+After running the script, we then ran a scan to see if the issue was fixed & the results shows that it was indeed fixed.
+
+<img width="1459" height="314" alt="image" src="https://github.com/user-attachments/assets/ed50c7bc-84e7-4c98-9c5c-290005af42d9" />
+
 
 ## 🔲 STIG 5 — *(Coming Soon)*
 
