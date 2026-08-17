@@ -199,12 +199,12 @@ A follow-up STIG scan was run to confirm the finding was resolved. Compliance st
 
 ---
 
-## 🔲 STIG 3 — *(Coming Soon)*
+## 🔲 STIG 3 — WN11-00-000175 
 
-> *Fill in the STIG ID, title, finding details, remediation steps, and screenshots when ready.*
+After running a scan, heres the specific vulnerability  
 
 ---
-
+As shown below in order to remediate this vulnerability, we must configure the "Secondary Logon" service "Startup Type" to "Disabled".
 ## 🔲 STIG 4 — *(Coming Soon)*
 
 > *Fill in the STIG ID, title, finding details, remediation steps, and screenshots when ready.*
