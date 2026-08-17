@@ -11,7 +11,7 @@ A hands-on cybersecurity lab documenting the identification, analysis, and remed
 | **Platform** | Microsoft Azure (Windows 11 VM) |
 | **STIG Benchmark** | Windows 11 STIG |
 | **Remediation Methods** | Registry edits, PowerShell, Group Policy |
-| **Progress** | 3 / 10 Complete |
+| **Progress** | 4 / 10 Complete |
 
 ---
 
@@ -22,7 +22,7 @@ A hands-on cybersecurity lab documenting the identification, analysis, and remed
 | 1 | WN11-AU-000500 | Application Event Log Max Size | ✅ Complete |
 | 2 | WN11-AU-000510 | System Event Log Max Size | ✅ Complete |
 | 3 | WN11-00-000175 | Secondary Logon Service Disabled | ✅ Complete |
-| 4 | *(coming soon)* | — | 🔲 Pending |
+| 4 | WN11-AC-000005 | Account Lockout Duration | ✅ Complete |
 | 5 | *(coming soon)* | — | 🔲 Pending |
 | 6 | *(coming soon)* | — | 🔲 Pending |
 | 7 | *(coming soon)* | — | 🔲 Pending |
@@ -58,7 +58,7 @@ The Windows 11 Application Event Log must be configured to a minimum size of **3
 
 An Azure VM running Windows 11 was provisioned with firewalls disabled to allow a baseline STIG scan to run against the machine.
 
-![Initial scan results](https://private-user-images.githubusercontent.com/301828066/636577288-a5a6f64e-7209-45aa-9c9d-8e5891753753.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NTc3Mjg4LWE1YTZmNjRlLTcyMDktNDVhYS05YzlkLThlNTg5MTc1Mzc1My5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwODE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDgxNlQxNDQ1MDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03MGNjMzAwMTE2OTQwNDgxNmJjYTM0ZDllNmUzZWJjNWYyY2FhZmRlMDI2NTRhNWM2YTliNGU3OGVlMjVjMGMxJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.AoFfCO5W6x7uHackOc3Am8JOVbVhyLoCNyWre_Y59IA)
+![Initial scan results](https://private-user-images.githubusercontent.com/301828066/636577288-a5a6f64e-7209-45aa-9c9d-8e5891753753.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NTc3Mjg4LWE1YTZmNjRlLTcyMDktNDVhYS05YzlkLThlNTg5MTc1Mzc1My5wbmciLCJzaWduYXR1cmUiOiJBb0ZmQ081VzZ4N3VIYWNrT2MzQW04Sk9WYmh5TG9DTnlXcmVfWTU5SUEifQ.AoFfCO5W6x7uHackOc3Am8JOVbVhyLoCNyWre_Y59IA)
 
 ---
 
@@ -66,7 +66,7 @@ An Azure VM running Windows 11 was provisioned with firewalls disabled to allow 
 
 The baseline scan flagged **WN11-AU-000500** as a failed finding.
 
-![STIG scan showing WN11-AU-000500 failed](https://private-user-images.githubusercontent.com/301828066/636646282-226fccf2-6884-400c-841a-01f731c166be.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjQ2MjgyLTIyNmZjY2YyLTY4ODQtNDAwYy04NDFhLTAxZjczMWMxNjZiZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwODE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDgxNlQxNDQ1MDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1kYmRlYzU3OGU3N2E2M2E0N2UzYzZjNDU4MmE1ZmVlODEwYzc4ZWE3NDgxZGIwNTM0MTI2NGVhMDQxZGQ4YWY5JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.Sbcff5FY0Tsur0tiMx2EaJ6Kd6hVSPSzSvH8O33Dbno)
+![STIG scan showing WN11-AU-000500 failed](https://private-user-images.githubusercontent.com/301828066/636646282-226fccf2-6884-400c-841a-01f731c166be.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTE4MDksIm5iZiI6MTc4Njg5MTUwOSwicGF0aCI6Ii8zMDE4MjgwNjYvNjM2NjQ2MjgyLTIyNmZjY2YyLTY4ODQtNDAwYy04NDFhLTAxZjczMWMxNjZiZS5wbmciLCJzaWduYXR1cmUiOiJkYmRlYzU3OGU3N2E2M2E0N2UzYzZjNDU4MmE1ZmVlODEwYzc4ZWE3NDgxZGIwNTM0MTI2NGVhMDQxZGQ4YWY5In0.Sbcff5FY0Tsur0tiMx2EaJ6Kd6hVSPSzSvH8O33Dbno)
 
 <br>
 
@@ -277,34 +277,80 @@ A follow-up STIG scan was run to confirm the finding was resolved. Compliance st
 
 ---
 
-## 🔲 STIG 4 — WN11-AC-000005
+## ✅ STIG 4 — WN11-AC-000005
+### Account Lockout Duration
 
-One other vulnerability we will be remediating is STIG ID WN11-AC-000005
+<br>
 
-<img width="1461" height="316" alt="Screenshot 2026-08-17 at 9 50 05 AM" src="https://github.com/user-attachments/assets/766e90a0-9b41-459c-b894-d2c215410130" />
+### 📌 What Is This Finding?
 
-As shown below, Windows 11 account lockout duration must be configured to 15 minutes or greater.
+Windows 11 must be configured to lock out accounts for a minimum of **15 minutes** after a set number of failed logon attempts. Without an adequate lockout duration, attackers can repeatedly attempt credentials in a short window — making brute-force and password-spray attacks more viable.
 
-<img width="1509" height="601" alt="Screenshot 2026-08-17 at 9 49 24 AM" src="https://github.com/user-attachments/assets/acc546dc-0228-45b4-ad7f-62a697692e9b" />
+> **STIG Requirement:**
+> Configure the policy value for:
+> `Computer Configuration >> Windows Settings >> Security Settings >> Account Policies >> Account Lockout Policy >> "Account lockout duration"`
+> to **15 minutes or greater**.
 
-As shown in the picture below the account lockout duration is currently at 10 minutes.. One way to manually remediate this issue is to 
+---
 
-<img width="1512" height="770" alt="Screenshot 2026-08-17 at 9 48 44 AM" src="https://github.com/user-attachments/assets/a910fa5b-4fb3-4cef-9017-e3158be9f3e3" />
+### 🔍 Step 1 — Identifying the Finding
 
-1.Press Win + R → type secpol.msc → Enter
-2.Navigate to Account Policies → Account Lockout Policy
-3.Double-click Account lockout duration
-4.Set to 15 minutes → OK
+The STIG scan flagged **WN11-AC-000005** as a failed finding, indicating the account lockout duration was below the required 15-minute minimum.
 
-A more efficient & recommended way is to run this script into powershell which is what 
-i did. 
+![STIG scan showing WN11-AC-000005 failed](https://github.com/user-attachments/assets/766e90a0-9b41-459c-b894-d2c215410130)
 
-<img width="976" height="514" alt="Screenshot 2026-08-17 at 9 51 23 AM" src="https://github.com/user-attachments/assets/34257cb4-906c-4d21-8f1c-12d2e07ce44e" />
+<br>
 
-After running the script, we then ran a scan to see if the issue was fixed & the results shows that it was indeed fixed.
+Reviewing the Account Lockout Policy confirmed the duration was set to only **10 minutes** — below the required threshold.
 
-<img width="1459" height="314" alt="image" src="https://github.com/user-attachments/assets/ed50c7bc-84e7-4c98-9c5c-290005af42d9" />
+![Account lockout policy showing duration set to 10 minutes](https://github.com/user-attachments/assets/acc546dc-0228-45b4-ad7f-62a697692e9b)
 
+<br>
+
+Inspecting the policy setting directly confirmed the non-compliant value.
+
+![Account lockout duration policy detail showing 10 minutes](https://github.com/user-attachments/assets/a910fa5b-4fb3-4cef-9017-e3158be9f3e3)
+
+---
+
+### 🛠️ Step 2 — Remediation
+
+Two methods can be used to resolve this finding.
+
+<br>
+
+#### Method 1 — Manual via Local Security Policy (secpol.msc)
+
+1. Press `Win + R` → type `secpol.msc` → press **Enter**
+2. Navigate to **Account Policies → Account Lockout Policy**
+3. Double-click **Account lockout duration**
+4. Set the value to **15** minutes → click **OK**
+
+<br>
+
+#### Method 2 — PowerShell Script *(Recommended)*
+
+A faster and repeatable approach. Run the following as Administrator:
+
+```powershell
+# Requires elevation (Run as Administrator)
+net accounts /lockoutduration:15
+Write-Host "Account lockout duration set to 15 minutes."
+```
+
+After running the script, the lockout duration was correctly updated to 15 minutes.
+
+![PowerShell script setting account lockout duration to 15 minutes](https://github.com/user-attachments/assets/34257cb4-906c-4d21-8f1c-12d2e07ce44e)
+
+---
+
+### ✔️ Step 3 — Verification
+
+A follow-up STIG scan was run to confirm the finding was resolved. Compliance status for WN11-AC-000005 now shows **Passed** ✅
+
+![Post-remediation scan confirming compliance passed](https://github.com/user-attachments/assets/ed50c7bc-84e7-4c98-9c5c-290005af42d9)
+
+---
 
 ## 🔲 STIG 5 — *(Coming Soon)*
 
