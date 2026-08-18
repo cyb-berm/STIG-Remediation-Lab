@@ -496,7 +496,19 @@ As shown below the current password remember is at 0
 
 <img width="1512" height="767" alt="image" src="https://github.com/user-attachments/assets/71a071da-2471-461d-8352-7f45d233eabe" />
 
-There is a manual way to remediate the vulnerability 
+There is a manual way to remediate the vulnerability with the following steps 
+
+1.secpol.msc → Account Policies → Password Policy
+2.Double-click Enforce password history
+3.Set to 24 → OK
+
+As you can see in the below image, I went ahead & remediated the issue with the follow power shell script which is more efficient & recommended. 
+
+<img width="1117" height="621" alt="image" src="https://github.com/user-attachments/assets/657c7ca4-0ffc-43a1-94d5-a98b6490fb4a" />
+
+
+After running a scan, as we can see with the provided image below the scan now says its passed & fixed.
+
 
 
 ---
