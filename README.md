@@ -482,9 +482,22 @@ A follow-up STIG scan was run to confirm the finding was resolved. Compliance st
 
 ---
 
-## 🔲 STIG 7 — *(Coming Soon)*
+## 🔲 STIG 7 — WN11-AC-000020
 
-> *Fill in the STIG ID, title, finding details, remediation steps, and screenshots when ready.*
+For the next STIG, the scan states that the password history must be configured to 24 passwords remembered.
+
+<img width="1458" height="292" alt="image" src="https://github.com/user-attachments/assets/5976262e-38e8-4db2-b702-dcac713ac5a9" />
+
+In the provided image it shows how to correctly remediate this vulnerability. 
+
+<img width="1512" height="359" alt="image" src="https://github.com/user-attachments/assets/45b99ce6-5172-4200-bd76-3f026145a8c7" />
+
+As shown below the current password remember is at 0
+
+<img width="1512" height="767" alt="image" src="https://github.com/user-attachments/assets/71a071da-2471-461d-8352-7f45d233eabe" />
+
+There is a manual way to remediate the vulnerability 
+
 
 ---
 
