@@ -11,7 +11,7 @@ A hands-on cybersecurity lab documenting the identification, analysis, and remed
 | **Platform** | Microsoft Azure (Windows 11 VM) |
 | **STIG Benchmark** | Windows 11 STIG |
 | **Remediation Methods** | Registry edits, PowerShell, Group Policy |
-| **Progress** | 6 / 10 Complete |
+| **Progress** | 10 / 10 Complete ✅ |
 
 ---
 
@@ -25,10 +25,10 @@ A hands-on cybersecurity lab documenting the identification, analysis, and remed
 | 4 | WN11-AC-000005 | Account Lockout Duration | ✅ Complete |
 | 5 | WN11-AC-000010 | Account Lockout Threshold | ✅ Complete |
 | 6 | WN11-AC-000015 | Logon Counter Reset Period | ✅ Complete |
-| 7 | *(coming soon)* | — | 🔲 Pending |
-| 8 | *(coming soon)* | — | 🔲 Pending |
-| 9 | *(coming soon)* | — | 🔲 Pending |
-| 10 | *(coming soon)* | — | 🔲 Pending |
+| 7 | WN11-AC-000020 | Password History | ✅ Complete |
+| 8 | WN11-AC-000030 | Minimum Password Age | ✅ Complete |
+| 9 | WN11-AC-000035 | Minimum Password Length | ✅ Complete |
+| 10 | WN11-AC-000040 | Password Complexity | ✅ Complete |
 
 ---
 
@@ -58,7 +58,8 @@ The Windows 11 Application Event Log must be configured to a minimum size of **3
 
 An Azure VM running Windows 11 was provisioned with firewalls disabled to allow a baseline STIG scan to run against the machine.
 
-> ⚠️ *Screenshots pending re-upload with permanent links.*
+<img width="1858" height="854" alt="Screenshot 2026-08-15 at 12 11 23 PM" src="https://github.com/user-attachments/assets/308d0521-655b-49d7-bc1a-c4880802f2f9" />
+
 
 ---
 
@@ -66,7 +67,9 @@ An Azure VM running Windows 11 was provisioned with firewalls disabled to allow 
 
 The baseline scan flagged **WN11-AU-000500** as a failed finding. Drilling into the STIG detail confirmed the Application Event Log max size was configured below the required 32,768 KB minimum. Checking the registry directly confirmed the `MaxSize` value was either missing or set below the required threshold.
 
-> ⚠️ *Screenshots pending re-upload with permanent links.*
+<img width="1906" height="614" alt="Screenshot 2026-08-15 at 1 42 00 PM" src="https://github.com/user-attachments/assets/268be8a1-a82b-4cad-afb7-36924e7016fa" />
+
+<img width="1918" height="909" alt="Screenshot 2026-08-15 at 1 40 52 PM" src="https://github.com/user-attachments/assets/7f723f52-a647-40ed-8a20-0c882e16a768" />
 
 ---
 
@@ -104,7 +107,8 @@ Set-ItemProperty -Path $regPath -Name 'MaxSize' -Value 0x8000 -Type DWord
 Write-Host "Applied: MaxSize = 0x8000 (32768 KB) at $regPath"
 ```
 
-> ⚠️ *Screenshots pending re-upload with permanent links.*
+<img width="1783" height="750" alt="Screenshot 2026-08-15 at 4 37 35 PM" src="https://github.com/user-attachments/assets/c5380b01-22f6-4045-bc3a-01ea20d21d09" />
+
 
 ---
 
@@ -112,7 +116,8 @@ Write-Host "Applied: MaxSize = 0x8000 (32768 KB) at $regPath"
 
 A follow-up STIG scan was run to confirm the finding was resolved. Compliance status for WN11-AU-000500 now shows **Passed** ✅
 
-> ⚠️ *Screenshots pending re-upload with permanent links.*
+> <img width="1506" height="399" alt="Screenshot 2026-08-15 at 2 45 55 PM" src="https://github.com/user-attachments/assets/65290167-d625-48bb-ba99-cf2d5b065b6d" />
+
 
 ---
 
@@ -482,143 +487,310 @@ A follow-up STIG scan was run to confirm the finding was resolved. Compliance st
 
 ---
 
-## 🔲 STIG 7 — WN11-AC-000020
+## ✅ STIG 7 — WN11-AC-000020
+### Password History
 
-For the next STIG, the scan states that the password history must be configured to 24 passwords remembered.
+<br>
 
-<img width="1458" height="292" alt="image" src="https://github.com/user-attachments/assets/5976262e-38e8-4db2-b702-dcac713ac5a9" />
+### 📌 What Is This Finding?
 
-In the provided image it shows how to correctly remediate this vulnerability. 
+Windows 11 must be configured to remember a minimum of **24 previously used passwords**. Without adequate password history enforcement, users can cycle through a small set of passwords — undermining the effectiveness of password rotation policies and making credential-based attacks easier.
 
-<img width="1512" height="359" alt="image" src="https://github.com/user-attachments/assets/45b99ce6-5172-4200-bd76-3f026145a8c7" />
-
-As shown below the current password remember is at 0
-
-<img width="1512" height="767" alt="image" src="https://github.com/user-attachments/assets/71a071da-2471-461d-8352-7f45d233eabe" />
-
-There is a manual way to remediate the vulnerability with the following steps 
-
-1.secpol.msc → Account Policies → Password Policy
-2.Double-click Enforce password history
-3.Set to 24 → OK
-
-As you can see in the below image, I went ahead & remediated the issue with the follow power shell script which is more efficient & recommended. 
-
-<img width="1117" height="621" alt="image" src="https://github.com/user-attachments/assets/657c7ca4-0ffc-43a1-94d5-a98b6490fb4a" />
-
-
-After running a scan, as we can see with the provided image below the scan now says its passed & fixed.
-
-<img width="1512" height="401" alt="image" src="https://github.com/user-attachments/assets/21b23477-75b2-421d-8d85-718f0c2bfba8" />
+> **STIG Requirement:**
+> Configure the policy value for:
+> `Computer Configuration >> Windows Settings >> Security Settings >> Account Policies >> Password Policy >> "Enforce password history"`
+> to **24 or more passwords remembered**.
 
 ---
 
-## 🔲 STIG 8 — WN11-AC-000030
+### 🔍 Step 1 — Identifying the Finding
 
-For our next stig as shown below was flagged due to the minimum password age not being configured to at least 1 day.
+The STIG scan flagged **WN11-AC-000020** as a failed finding, indicating the password history was not configured to the required minimum of 24.
 
+![STIG scan showing WN11-AC-000020 failed](https://github.com/user-attachments/assets/5976262e-38e8-4db2-b702-dcac713ac5a9)
 
-<img width="1488" height="290" alt="image" src="https://github.com/user-attachments/assets/23bec646-6c8a-4f90-a61d-c7336afb0b1d" />
+<br>
 
+Reviewing the STIG detail confirmed the requirement and the remediation path.
 
-here in the provided image below further describes the vulerbility & how to fix
+![STIG detail explaining the password history requirement](https://github.com/user-attachments/assets/45b99ce6-5172-4200-bd76-3f026145a8c7)
 
-<img width="1512" height="358" alt="image" src="https://github.com/user-attachments/assets/afe9ec52-6b7a-42c8-84eb-347645e8ef5b" />
+<br>
 
+Inspecting the Password Policy confirmed the history was set to **0** — meaning no password history was being enforced at all.
 
-Here as you can see in the image below that the vulnerability & that the current minimum password age is at 0 currently
-
-<img width="1512" height="779" alt="image" src="https://github.com/user-attachments/assets/6701f26e-7946-4f51-9788-377eb092ebab" />
-
-
-to manually remediate this vulnerability you could follow these steps as followed
-
-1.secpol.msc → Account Policies → Password Policy
-2.Double-click Minimum password age
-3.Set to 1 day → OK
-
-I will be doing a more effecient way to fix the issue by running this script in powershell as shown in image below
-
-<img width="1122" height="639" alt="image" src="https://github.com/user-attachments/assets/0eb9efac-bc99-4ff5-bb4d-07499b0f26c9" />
-
-After running the script & re scanning it came back reading passed
-
-<img width="1108" height="294" alt="image" src="https://github.com/user-attachments/assets/e579ddcc-117b-4900-bdc8-3514d9e606bc" />
+![Password policy showing enforce password history set to 0](https://github.com/user-attachments/assets/71a071da-2471-461d-8352-7f45d233eabe)
 
 ---
 
-## 🔲 STIG 9 — WN11-AC-000035
+### 🛠️ Step 2 — Remediation
 
-For the next STIG the scan shows failed in the provided image.
+Two methods can be used to resolve this finding.
 
-<img width="1094" height="291" alt="image" src="https://github.com/user-attachments/assets/fe620c2e-6fab-436e-9163-6e374c4ad0a9" />
+<br>
 
+#### Method 1 — Manual via Local Security Policy (secpol.msc)
 
-In the provided image below further explains the vulnerability with the step to fix it 
+1. Press `Win + R` → type `secpol.msc` → press **Enter**
+2. Navigate to **Account Policies → Password Policy**
+3. Double-click **Enforce password history**
+4. Set the value to **24** → click **OK**
 
-<img width="1502" height="347" alt="image" src="https://github.com/user-attachments/assets/0cd50e57-51d6-4ebc-93a1-40c30ddc0124" />
+<br>
 
+#### Method 2 — PowerShell Script *(Recommended)*
 
-As you can see in the provided image that the password minimum is not 14 characters.
+A faster and repeatable approach. Run the following as Administrator:
 
-<img width="1510" height="770" alt="image" src="https://github.com/user-attachments/assets/4c921216-30ea-43d6-907a-9256019fc744" />
+```powershell
+# Requires elevation (Run as Administrator)
+net accounts /uniquepw:24
+Write-Host "Password history set to 24 passwords remembered."
+```
 
+After running the script, the password history was correctly updated to 24.
 
-To manually remediate the issue you can follow these following steps
-
-1.secpol.msc → Account Policies → Password Policy
-2.Double-click Minimum password length
-3.Set to 14 → OK
-
-I will be remediating the situation with a more efficient & recommended way by running this script into powershell as shown in image.
-
-<img width="1119" height="631" alt="image" src="https://github.com/user-attachments/assets/d8f5a6ae-6a8f-4950-a243-7593b0a270ce" />
-
-
-After running the script in powershell & re scanning, here is the results which shows that it was fixed.
-
-<img width="1103" height="292" alt="image" src="https://github.com/user-attachments/assets/110f04d0-625b-4a21-be65-099a9357c9bc" />
+![PowerShell script setting password history to 24](https://github.com/user-attachments/assets/657c7ca4-0ffc-43a1-94d5-a98b6490fb4a)
 
 ---
 
-## 🔲 STIG 10 — WN11-AC-000040
+### ✔️ Step 3 — Verification
 
-After running a scan here is the following STIG that shows failed in the image below
+A follow-up STIG scan was run to confirm the finding was resolved. Compliance status for WN11-AC-000020 now shows **Passed** ✅
 
-<img width="1099" height="296" alt="image" src="https://github.com/user-attachments/assets/a99c6fa0-c5e8-467a-b9d4-34ae9a2b7b6d" />
+![Post-remediation scan confirming compliance passed](https://github.com/user-attachments/assets/21b23477-75b2-421d-8d85-718f0c2bfba8)
 
+---
 
-In the image below goes more into detail of the following vulnerability & how to fix it 
+## ✅ STIG 8 — WN11-AC-000030
+### Minimum Password Age
 
-<img width="1512" height="433" alt="image" src="https://github.com/user-attachments/assets/9a7d72c7-343c-47cd-a317-60d1b597cb1b" />
+<br>
 
+### 📌 What Is This Finding?
 
-After going into the account policy, here you can see that the built-in Microsoft password complexity filter is currently disabled.
+Windows 11 must be configured with a minimum password age of **at least 1 day**. Without this control, users can immediately change their password multiple times in succession to cycle back to a previously used one — completely bypassing password history enforcement.
 
-<img width="1512" height="776" alt="image" src="https://github.com/user-attachments/assets/9ca3a5c0-b78c-4e0c-94de-e0c66351fba5" />
+> **STIG Requirement:**
+> Configure the policy value for:
+> `Computer Configuration >> Windows Settings >> Security Settings >> Account Policies >> Password Policy >> "Minimum password age"`
+> to **1 or more days**.
 
+---
 
-To manually remediate the issue you can do so with the following steps 
+### 🔍 Step 1 — Identifying the Finding
 
-1.secpol.msc → Account Policies → Password Policy
-2.Double-click Password must meet complexity requirements
-3.Set to Enabled → OK
+The STIG scan flagged **WN11-AC-000030** as a failed finding, indicating the minimum password age was not configured to at least 1 day.
 
-I went ahead & remediated the situation in a more effiecent & recommended way by implementing the following script into powershell as shown in the image below.
+![STIG scan showing WN11-AC-000030 failed](https://github.com/user-attachments/assets/23bec646-6c8a-4f90-a61d-c7336afb0b1d)
 
-<img width="1119" height="628" alt="image" src="https://github.com/user-attachments/assets/840e8b5b-fe04-45e0-838d-157772e6f81a" />
+<br>
 
+Reviewing the STIG detail confirmed the requirement and the remediation path.
 
-After implementing the following script & re scanning, it shows that the issue was fixed & status is now passed.
+![STIG detail explaining the minimum password age requirement](https://github.com/user-attachments/assets/afe9ec52-6b7a-42c8-84eb-347645e8ef5b)
 
-<img width="1100" height="299" alt="image" src="https://github.com/user-attachments/assets/04b7e534-6820-4def-86be-ece65ad56e61" />
+<br>
 
+Inspecting the Password Policy confirmed the minimum password age was set to **0 days** — meaning passwords could be changed immediately and repeatedly.
+
+![Password policy showing minimum password age set to 0](https://github.com/user-attachments/assets/6701f26e-7946-4f51-9788-377eb092ebab)
+
+---
+
+### 🛠️ Step 2 — Remediation
+
+Two methods can be used to resolve this finding.
+
+<br>
+
+#### Method 1 — Manual via Local Security Policy (secpol.msc)
+
+1. Press `Win + R` → type `secpol.msc` → press **Enter**
+2. Navigate to **Account Policies → Password Policy**
+3. Double-click **Minimum password age**
+4. Set the value to **1** day → click **OK**
+
+<br>
+
+#### Method 2 — PowerShell Script *(Recommended)*
+
+A faster and repeatable approach. Run the following as Administrator:
+
+```powershell
+# Requires elevation (Run as Administrator)
+net accounts /minpwage:1
+Write-Host "Minimum password age set to 1 day."
+```
+
+After running the script, the minimum password age was correctly updated to 1 day.
+
+![PowerShell script setting minimum password age to 1 day](https://github.com/user-attachments/assets/0eb9efac-bc99-4ff5-bb4d-07499b0f26c9)
+
+---
+
+### ✔️ Step 3 — Verification
+
+A follow-up STIG scan was run to confirm the finding was resolved. Compliance status for WN11-AC-000030 now shows **Passed** ✅
+
+![Post-remediation scan confirming compliance passed](https://github.com/user-attachments/assets/e579ddcc-117b-4900-bdc8-3514d9e606bc)
+
+---
+
+## ✅ STIG 9 — WN11-AC-000035
+### Minimum Password Length
+
+<br>
+
+### 📌 What Is This Finding?
+
+Windows 11 must enforce a minimum password length of **14 characters**. Shorter passwords are significantly more vulnerable to brute-force attacks — longer passwords exponentially increase the number of possible combinations an attacker must try.
+
+> **STIG Requirement:**
+> Configure the policy value for:
+> `Computer Configuration >> Windows Settings >> Security Settings >> Account Policies >> Password Policy >> "Minimum password length"`
+> to **14 characters or more**.
+
+---
+
+### 🔍 Step 1 — Identifying the Finding
+
+The STIG scan flagged **WN11-AC-000035** as a failed finding, indicating the minimum password length was below the required 14 characters.
+
+![STIG scan showing WN11-AC-000035 failed](https://github.com/user-attachments/assets/fe620c2e-6fab-436e-9163-6e374c4ad0a9)
+
+<br>
+
+Reviewing the STIG detail confirmed the requirement and the remediation path.
+
+![STIG detail explaining the minimum password length requirement](https://github.com/user-attachments/assets/0cd50e57-51d6-4ebc-93a1-40c30ddc0124)
+
+<br>
+
+Inspecting the Password Policy confirmed the minimum password length was set below the required 14-character minimum.
+
+![Password policy showing non-compliant minimum password length](https://github.com/user-attachments/assets/4c921216-30ea-43d6-907a-9256019fc744)
+
+---
+
+### 🛠️ Step 2 — Remediation
+
+Two methods can be used to resolve this finding.
+
+<br>
+
+#### Method 1 — Manual via Local Security Policy (secpol.msc)
+
+1. Press `Win + R` → type `secpol.msc` → press **Enter**
+2. Navigate to **Account Policies → Password Policy**
+3. Double-click **Minimum password length**
+4. Set the value to **14** → click **OK**
+
+<br>
+
+#### Method 2 — PowerShell Script *(Recommended)*
+
+A faster and repeatable approach. Run the following as Administrator:
+
+```powershell
+# Requires elevation (Run as Administrator)
+net accounts /minpwlen:14
+Write-Host "Minimum password length set to 14 characters."
+```
+
+After running the script, the minimum password length was correctly updated to 14 characters.
+
+![PowerShell script setting minimum password length to 14](https://github.com/user-attachments/assets/d8f5a6ae-6a8f-4950-a243-7593b0a270ce)
+
+---
+
+### ✔️ Step 3 — Verification
+
+A follow-up STIG scan was run to confirm the finding was resolved. Compliance status for WN11-AC-000035 now shows **Passed** ✅
+
+![Post-remediation scan confirming compliance passed](https://github.com/user-attachments/assets/110f04d0-625b-4a21-be65-099a9357c9bc)
+
+---
+
+## ✅ STIG 10 — WN11-AC-000040
+### Password Complexity
+
+<br>
+
+### 📌 What Is This Finding?
+
+Windows 11 must have the built-in Microsoft **password complexity filter enabled**. Without complexity requirements, users can set simple, easily guessable passwords — significantly weakening the organization's authentication security even when minimum length is enforced.
+
+> **STIG Requirement:**
+> Configure the policy value for:
+> `Computer Configuration >> Windows Settings >> Security Settings >> Account Policies >> Password Policy >> "Password must meet complexity requirements"`
+> to **Enabled**.
+
+---
+
+### 🔍 Step 1 — Identifying the Finding
+
+The STIG scan flagged **WN11-AC-000040** as a failed finding, indicating password complexity requirements were not enabled.
+
+![STIG scan showing WN11-AC-000040 failed](https://github.com/user-attachments/assets/a99c6fa0-c5e8-467a-b9d4-34ae9a2b7b6d)
+
+<br>
+
+Reviewing the STIG detail confirmed the requirement and the remediation path.
+
+![STIG detail explaining the password complexity requirement](https://github.com/user-attachments/assets/9a7d72c7-343c-47cd-a317-60d1b597cb1b)
+
+<br>
+
+Inspecting the Password Policy confirmed the complexity filter was set to **Disabled** — meaning no character-type requirements were being enforced.
+
+![Password policy showing complexity requirements disabled](https://github.com/user-attachments/assets/9ca3a5c0-b78c-4e0c-94de-e0c66351fba5)
+
+---
+
+### 🛠️ Step 2 — Remediation
+
+Two methods can be used to resolve this finding.
+
+<br>
+
+#### Method 1 — Manual via Local Security Policy (secpol.msc)
+
+1. Press `Win + R` → type `secpol.msc` → press **Enter**
+2. Navigate to **Account Policies → Password Policy**
+3. Double-click **Password must meet complexity requirements**
+4. Set to **Enabled** → click **OK**
+
+<br>
+
+#### Method 2 — PowerShell Script *(Recommended)*
+
+A faster and repeatable approach. Run the following as Administrator:
+
+```powershell
+# Requires elevation (Run as Administrator)
+secedit /export /cfg C:\secpol.cfg
+(Get-Content C:\secpol.cfg) -replace 'PasswordComplexity = 0','PasswordComplexity = 1' | Set-Content C:\secpol.cfg
+secedit /configure /db secedit.sdb /cfg C:\secpol.cfg /quiet
+Remove-Item C:\secpol.cfg
+Write-Host "Password complexity enabled."
+```
+
+After running the script, the password complexity filter was correctly set to Enabled.
+
+![PowerShell script enabling password complexity](https://github.com/user-attachments/assets/840e8b5b-fe04-45e0-838d-157772e6f81a)
+
+---
+
+### ✔️ Step 3 — Verification
+
+A follow-up STIG scan was run to confirm the finding was resolved. Compliance status for WN11-AC-000040 now shows **Passed** ✅
+
+![Post-remediation scan confirming compliance passed](https://github.com/user-attachments/assets/04b7e534-6820-4def-86be-ece65ad56e61)
+
+---
 
 ## 📚 Resources
-
-- [DISA STIG Library](https://public.cyber.mil/stigs/)
-- [Windows 11 STIG Overview](https://www.stigviewer.com/stig/windows_11/)
-- [NIST NVD](https://nvd.nist.gov/)
 
 - [DISA STIG Library](https://public.cyber.mil/stigs/)
 - [Windows 11 STIG Overview](https://www.stigviewer.com/stig/windows_11/)
