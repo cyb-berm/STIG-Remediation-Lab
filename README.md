@@ -541,17 +541,48 @@ I will be doing a more effecient way to fix the issue by running this script in 
 
 <img width="1122" height="639" alt="image" src="https://github.com/user-attachments/assets/0eb9efac-bc99-4ff5-bb4d-07499b0f26c9" />
 
+After running the script & re scanning it came back reading passed
+
+<img width="1108" height="294" alt="image" src="https://github.com/user-attachments/assets/e579ddcc-117b-4900-bdc8-3514d9e606bc" />
+
+---
+
+## 🔲 STIG 9 — WN11-AC-000035
+
+For the next STIG the scan shows failed in the provided image.
+
+<img width="1094" height="291" alt="image" src="https://github.com/user-attachments/assets/fe620c2e-6fab-436e-9163-6e374c4ad0a9" />
+
+
+In the provided image below further explains the vulnerability with the step to fix it 
+
+<img width="1502" height="347" alt="image" src="https://github.com/user-attachments/assets/0cd50e57-51d6-4ebc-93a1-40c30ddc0124" />
+
+
+As you can see in the provided image that the password minimum is not 14 characters.
+
+<img width="1510" height="770" alt="image" src="https://github.com/user-attachments/assets/4c921216-30ea-43d6-907a-9256019fc744" />
+
+
+To manually remediate the issue you can follow these following steps
+
+1.secpol.msc → Account Policies → Password Policy
+2.Double-click Minimum password length
+3.Set to 14 → OK
+
+I will be remediating the situation with a more efficient & recommended way by running this script into powershell as shown in image.
+
+<img width="1119" height="631" alt="image" src="https://github.com/user-attachments/assets/d8f5a6ae-6a8f-4950-a243-7593b0a270ce" />
+
+
+After running the script in powershell & re scanning, here is the results which shows that it was fixed.
+
+
 
 
 ---
 
-## 🔲 STIG 9 — *(Coming Soon)*
-
-> *Fill in the STIG ID, title, finding details, remediation steps, and screenshots when ready.*
-
----
-
-## 🔲 STIG 10 — *(Coming Soon)*
+## 🔲 STIG 10 — 
 
 > *Fill in the STIG ID, title, finding details, remediation steps, and screenshots when ready.*
 
