@@ -19,16 +19,16 @@ A hands-on cybersecurity lab documenting the identification, analysis, and remed
 
 | # | STIG ID | Title | Status |
 |---|---|---|---|
-| 1 | WN11-AU-000500 | Application Event Log Max Size | ✅ Complete |
-| 2 | WN11-AU-000510 | System Event Log Max Size | ✅ Complete |
-| 3 | WN11-00-000175 | Secondary Logon Service Disabled | ✅ Complete |
-| 4 | WN11-AC-000005 | Account Lockout Duration | ✅ Complete |
-| 5 | WN11-AC-000010 | Account Lockout Threshold | ✅ Complete |
-| 6 | WN11-AC-000015 | Logon Counter Reset Period | ✅ Complete |
-| 7 | WN11-AC-000020 | Password History | ✅ Complete |
-| 8 | WN11-AC-000030 | Minimum Password Age | ✅ Complete |
-| 9 | WN11-AC-000035 | Minimum Password Length | ✅ Complete |
-| 10 | WN11-AC-000040 | Password Complexity | ✅ Complete |
+| 1 | [WN11-AU-000500](#-stig-1--wn11-au-000500) | Application Event Log Max Size | ✅ Complete |
+| 2 | [WN11-AU-000510](#-stig-2--wn11-au-000510) | System Event Log Max Size | ✅ Complete |
+| 3 | [WN11-00-000175](#-stig-3--wn11-00-000175) | Secondary Logon Service Disabled | ✅ Complete |
+| 4 | [WN11-AC-000005](#-stig-4--wn11-ac-000005) | Account Lockout Duration | ✅ Complete |
+| 5 | [WN11-AC-000010](#-stig-5--wn11-ac-000010) | Account Lockout Threshold | ✅ Complete |
+| 6 | [WN11-AC-000015](#-stig-6--wn11-ac-000015) | Logon Counter Reset Period | ✅ Complete |
+| 7 | [WN11-AC-000020](#-stig-7--wn11-ac-000020) | Password History | ✅ Complete |
+| 8 | [WN11-AC-000030](#-stig-8--wn11-ac-000030) | Minimum Password Age | ✅ Complete |
+| 9 | [WN11-AC-000035](#-stig-9--wn11-ac-000035) | Minimum Password Length | ✅ Complete |
+| 10 | [WN11-AC-000040](#-stig-10--wn11-ac-000040) | Password Complexity | ✅ Complete |
 
 ---
 
