@@ -577,16 +577,42 @@ I will be remediating the situation with a more efficient & recommended way by r
 
 After running the script in powershell & re scanning, here is the results which shows that it was fixed.
 
-
-
-
----
-
-## 🔲 STIG 10 — 
-
-> *Fill in the STIG ID, title, finding details, remediation steps, and screenshots when ready.*
+<img width="1103" height="292" alt="image" src="https://github.com/user-attachments/assets/110f04d0-625b-4a21-be65-099a9357c9bc" />
 
 ---
+
+## 🔲 STIG 10 — WN11-AC-000040
+
+After running a scan here is the following STIG that shows failed in the image below
+
+<img width="1099" height="296" alt="image" src="https://github.com/user-attachments/assets/a99c6fa0-c5e8-467a-b9d4-34ae9a2b7b6d" />
+
+
+In the image below goes more into detail of the following vulnerability & how to fix it 
+
+<img width="1512" height="433" alt="image" src="https://github.com/user-attachments/assets/9a7d72c7-343c-47cd-a317-60d1b597cb1b" />
+
+
+After going into the account policy, here you can see that the built-in Microsoft password complexity filter is currently disabled.
+
+<img width="1512" height="776" alt="image" src="https://github.com/user-attachments/assets/9ca3a5c0-b78c-4e0c-94de-e0c66351fba5" />
+
+
+To manually remediate the issue you can do so with the following steps 
+
+1.secpol.msc → Account Policies → Password Policy
+2.Double-click Password must meet complexity requirements
+3.Set to Enabled → OK
+
+I went ahead & remediated the situation in a more effiecent & recommended way by implementing the following script into powershell as shown in the image below.
+
+<img width="1119" height="628" alt="image" src="https://github.com/user-attachments/assets/840e8b5b-fe04-45e0-838d-157772e6f81a" />
+
+
+After implementing the following script & re scanning, it shows that the issue was fixed & status is now passed.
+
+<img width="1100" height="299" alt="image" src="https://github.com/user-attachments/assets/04b7e534-6820-4def-86be-ece65ad56e61" />
+
 
 ## 📚 Resources
 
