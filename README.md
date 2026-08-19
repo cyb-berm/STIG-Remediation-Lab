@@ -509,13 +509,39 @@ As you can see in the below image, I went ahead & remediated the issue with the 
 
 After running a scan, as we can see with the provided image below the scan now says its passed & fixed.
 
-
+<img width="1512" height="401" alt="image" src="https://github.com/user-attachments/assets/21b23477-75b2-421d-8d85-718f0c2bfba8" />
 
 ---
 
-## 🔲 STIG 8 — *(Coming Soon)*
+## 🔲 STIG 8 — WN11-AC-000030
 
-> *Fill in the STIG ID, title, finding details, remediation steps, and screenshots when ready.*
+For our next stig as shown below was flagged due to the minimum password age not being configured to at least 1 day.
+
+
+<img width="1488" height="290" alt="image" src="https://github.com/user-attachments/assets/23bec646-6c8a-4f90-a61d-c7336afb0b1d" />
+
+
+here in the provided image below further describes the vulerbility & how to fix
+
+<img width="1512" height="358" alt="image" src="https://github.com/user-attachments/assets/afe9ec52-6b7a-42c8-84eb-347645e8ef5b" />
+
+
+Here as you can see in the image below that the vulnerability & that the current minimum password age is at 0 currently
+
+<img width="1512" height="779" alt="image" src="https://github.com/user-attachments/assets/6701f26e-7946-4f51-9788-377eb092ebab" />
+
+
+to manually remediate this vulnerability you could follow these steps as followed
+
+1.secpol.msc → Account Policies → Password Policy
+2.Double-click Minimum password age
+3.Set to 1 day → OK
+
+I will be doing a more effecient way to fix the issue by running this script in powershell as shown in image below
+
+<img width="1122" height="639" alt="image" src="https://github.com/user-attachments/assets/0eb9efac-bc99-4ff5-bb4d-07499b0f26c9" />
+
+
 
 ---
 
